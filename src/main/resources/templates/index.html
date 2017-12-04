@@ -6,21 +6,24 @@
     </head>
     <body>
 
-        <h2>Articles</h2>
+        <h2>Boulder News</h2>
+        
+        <ul>
+            <li th:each="article : ${articles}">
+                <a th:href="@{/articles/{id}(id=${article.id})}">
+                    <span th:text="${article.title + ' ' + article.publishingTime}">title and date</span>
+                </a>
+            </li>
+        </ul>
 
-        <div>
-            <ul>
-                <li th:each="article : ${articles}" th:text="${article.name}"></li>
-            </ul>
-        </div>
+        <h1>Add an article</h1>
 
-
-        <h2>Add new</h2>
-
-        <form method="POST" th:action="@{/}">
-            <input type="text" name="name"/>
-            <input type="submit" value="Add"/>
+        <form th:action="@{/}" method="POST">
+            <p>Title: <input name="title"></input></p>
+            <p>Date: <input type="date" name="publishingTime"></input></p>
+            <input type="submit" value="Add"></input>
         </form>
+
 
     </body>
 
