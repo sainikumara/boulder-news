@@ -10,7 +10,7 @@ import wad.domain.Article;
 import wad.repository.ArticleRepository;
 
 @Controller
-public class AliveController {
+public class ArticleController {
 
     @Autowired
     private ArticleRepository articleRepository;
@@ -22,8 +22,9 @@ public class AliveController {
     }
 
     @PostMapping("/")
-    public String create(@RequestParam String name) {
-        Article article = new Article(name);
+    public String create(@RequestParam String title) {
+        Article article = new Article();
+        article.setTitle(title);
         articleRepository.save(article);
         return "redirect:/";
     }
