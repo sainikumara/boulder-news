@@ -1,8 +1,10 @@
 package wad.domain;
 
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,11 +14,11 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @AllArgsConstructor
 @Data
 @Entity
-public class Writer extends AbstractPersistable<Long> {
-
-    private String name;
+public class PageView extends AbstractPersistable<Long> {
     
-    @ManyToMany(mappedBy="writers")
-    private List<Article> articles;
+    private LocalDate viewTime; 
+            
+    @ManyToOne
+    private Article article;
 
 }
