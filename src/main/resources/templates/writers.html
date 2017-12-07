@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Writers</title>
+    </head>
+    <body>
+
+<!--        <header th:replace="fragments/header :: header">
+            <p>header with links etc</p>
+        </header>-->
+
+        <h1>Writers</h1>
+
+        <ul>
+            <li th:each="writer : ${writers}">
+                <a th:href="@{/writers/{id}(id=${writer.id})}">
+                    <span th:text="${writer.name}">writer</span>
+                </a>
+            </li>
+        </ul>
+
+        <h1>Add a writer</h1>
+
+        <form th:action="@{/writers}" method="POST">
+            <p>Name: <input name="name"></input></p>
+            <input type="submit" value="Add"></input>
+        </form>
+
+    </body>
+</html>

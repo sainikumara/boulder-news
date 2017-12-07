@@ -1,7 +1,7 @@
 package wad.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import wad.domain.Article;
+import wad.domain.Writer;
 
-public interface WriterRepository extends JpaRepository<Article, Long> {
+public interface WriterRepository extends JpaRepository<Writer, Long> {
 }
