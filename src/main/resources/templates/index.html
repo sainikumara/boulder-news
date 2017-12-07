@@ -10,20 +10,20 @@
         
         <ul>
             <li th:each="article : ${articles}">
+                <h3 th:text="${article.title}">title</h3>
+                <span> </span>
+                <span th:text="${article.publishingTime}">time</span>
+                <br/>
+                <span th:text="${article.lead}"></span>
+                <br/>
+                <img  th:src="@{/pictures_by_article/{id}/content(id=${article.id})}"
+                       width="200"/>
+                <br/>
                 <a th:href="@{/articles/{id}(id=${article.id})}">
-                    <span th:text="${article.title + ' ' + article.publishingTime}">title and date</span>
+                    Read more
                 </a>
             </li>
         </ul>
-
-        <h1>Add an article</h1>
-
-        <form th:action="@{/}" method="POST">
-            <p>Title: <input name="title"></input></p>
-            <p>Date: <input type="date" name="publishingTime"></input></p>
-            <input type="submit" value="Add"></input>
-        </form>
-
 
     </body>
 
