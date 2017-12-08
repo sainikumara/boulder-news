@@ -14,7 +14,15 @@
         <h2 th:text="${article.lead}">Lead</h2>
         <img th:src="@{/pictures/{id}/content(id=${picture.id})}" width="500"/>
         <div th:text="${article.content}">content</div>
-        
+        <div>Written by:
+            <ul>
+                <li th:each="writer : ${writers}">
+                    <a th:href="@{/writers/{id}(id=${writer.id})}">
+                        <span th:text="${writer.name}">writer</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
         
         <div id="listings">
             <h3>This Week's Most Read Articles</h3>
