@@ -6,7 +6,11 @@
     </head>
     <body>
 
-        <h2>Boulder News</h2>
+        <header th:replace="fragments/header :: header">
+            <p>Navigation bar</p>
+        </header>
+        
+        <h2>Boulder News: <span th:text="${writer.name}">Writer</span></h2>
         
         <ul>
             <li th:each="article : ${articles}">

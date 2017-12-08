@@ -6,9 +6,9 @@
     </head>
     <body>
 
-<!--        <header th:replace="fragments/header :: header">
-            <p>header with links etc</p>
-        </header>-->
+        <header th:replace="fragments/header :: header">
+            <p>Navigation bar</p>
+        </header>
 
         <h1>Writers</h1>
 
@@ -17,6 +17,9 @@
                 <a th:href="@{/writers/{id}(id=${writer.id})}">
                     <span th:text="${writer.name}">writer</span>
                 </a>
+                <form th:action="@{/writers/{id}(id=${writer.id})}" th:method="DELETE">
+                    <input type="submit" value="remove"/>
+                </form>
             </li>
         </ul>
 
