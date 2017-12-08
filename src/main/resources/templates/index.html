@@ -5,8 +5,11 @@
         <title>Boulder News</title>
     </head>
     <body>
-
-        <h2>Boulder News</h2>
+        <header th:replace="fragments/header :: header">
+            <p>Navigation bar</p>
+        </header>
+        
+        <h1>Boulder News</h1>
         
         <ul>
             <li th:each="article : ${articles}">
