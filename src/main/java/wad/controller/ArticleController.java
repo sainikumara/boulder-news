@@ -9,7 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,15 +48,19 @@ public class ArticleController {
     private PageViewRepository pageViewRepository;
 
     @GetMapping("/")
-    public String list(Model model,
+    public String frontpage(Model model,
             @RequestParam(defaultValue="0") int page,
             @RequestParam(defaultValue="5") int limit) {
-        
-        Pageable pageable = PageRequest.of(page, limit, Sort.Direction.DESC, "publishingTime");
-        
-        model.addAttribute("articles", this.articleRepository.findAll(pageable));
+        model.addAttribute("articles", this.articleRepository.findAll(this.newestOnList(page, limit)));
+        model.addAttribute("categories", this.categoryRepository.findAll());
         
         return "index";
+    }
+    
+    public Pageable newestOnList(int page, int limit) {
+        Pageable pageable = PageRequest.of(page, limit, Sort.Direction.DESC, "publishingTime");
+        
+        return pageable;
     }
     
     @GetMapping("/add_article")
@@ -65,19 +71,25 @@ public class ArticleController {
     }
 
     @GetMapping("/articles/{id}")
-    public String viewExam(Model model, @PathVariable Long id) {
-        // TODO check if article exists
-        Article article = this.articleRepository.getOne(id);
-        this.addPageView(article);
-        
-        List<Article> mostReadLastWeek = 
-            this.articleRepository.mostReadSince(this.dateOneWeekAgo()).subList(0, 5);
-        
-        model.addAttribute("article", article);
-        model.addAttribute("picture", article.getPicture());
-        model.addAttribute("mostread", mostReadLastWeek);
-        
-        return "article";
+    public String viewArticle(Model model, @PathVariable Long id) {
+        // TODO direct to error page if article doesn't exist
+        if (this.articleRepository.existsById(id)) {
+            model.addAttribute("categories", this.categoryRepository.findAll());
+            
+            Article article = this.articleRepository.getOne(id);
+            this.addPageView(article);
+
+            model.addAttribute("article", article);
+            model.addAttribute("picture", article.getPicture());
+            model.addAttribute("writers", article.getWriters());
+            
+            int listSize = 5;
+            model.addAttribute("mostread", this.getMostReadLastWeek(listSize));
+            model.addAttribute("newest", this.articleRepository.findAll(this.newestOnList(0, listSize)));
+
+            return "article";
+        }
+        return "index";
     }
     
     private void addPageView(Article article) {
@@ -91,8 +103,20 @@ public class ArticleController {
         this.articleRepository.save(article);
     }
     
-    private LocalDate dateOneWeekAgo() {
-        return LocalDate.now().minusWeeks(1L);
+    private List<Article> getMostReadLastWeek(int preferredListSize) {
+        List<Article> readLastWeek = 
+            this.articleRepository.mostReadSince(LocalDate.now().minusWeeks(1L));
+        int realListSize;
+        
+        if (readLastWeek.size() < preferredListSize) {
+            realListSize = readLastWeek.size();
+        } else {
+            realListSize = preferredListSize;
+        }
+        
+        List<Article> mostReadLastWeek = readLastWeek.subList(0, realListSize);
+        
+        return mostReadLastWeek;
     }
     
     @PostMapping("/add_article")
@@ -112,6 +136,7 @@ public class ArticleController {
         article.setWriters(writers);
 
         if(file.getContentType().equals("image/jpeg")) {
+            // TODO allow larger files, reduce size?
             Picture picture = new Picture();
             picture.setContent(file.getBytes());
             this.pictureRepository.save(picture);
@@ -119,6 +144,25 @@ public class ArticleController {
         }
         
         this.articleRepository.save(article);
+        return "redirect:/";
+    }
+    
+    @Transactional
+    @DeleteMapping("/articles/{id}")
+    public String removeArticle(@PathVariable Long id) {
+        Article article = this.articleRepository.getOne(id);
+        this.pictureRepository.delete(article.getPicture());
+        
+        article.getCategories().forEach((category) -> {
+            this.categoryRepository.getOne(category.getId()).getArticles().remove(article);
+        });
+        
+        article.getWriters().forEach((writer) -> {
+            this.writerRepository.getOne(writer.getId()).getArticles().remove(article);
+        });
+        
+        this.articleRepository.delete(article);
+        
         return "redirect:/";
     }
     

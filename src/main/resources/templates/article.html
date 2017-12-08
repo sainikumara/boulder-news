@@ -6,20 +6,38 @@
         <title>Article</title>
     </head>
     <body>
-    <body>
+        <header th:replace="fragments/header :: header">
+            <p>Navigation bar</p>
+        </header>
+        
         <h1 th:text="${article.title}">Title</h1>
         <h2 th:text="${article.lead}">Lead</h2>
-        <img th:src="@{/pictures/{id}/content(id=${picture.id})}"/>
+        <img th:src="@{/pictures/{id}/content(id=${picture.id})}" width="500"/>
         <div th:text="${article.content}">content</div>
         
-        <div>
+        
+        <div id="listings">
+            <h3>This Week's Most Read Articles</h3>
             <ul>
                 <li th:each="article : ${mostread}">
-                    <span th:text="${article.title}">title</span>
-                    <span> </span>
-                    <span th:text="${article.publishingTime}">time</span>
+                    <a th:href="@{/articles/{id}(id=${article.id})}">
+                        <span th:text="${article.title}">title</span>
+                        <span> </span>
+                        <span th:text="${article.publishingTime}">time</span>
+                    </a>
                 </li>
-                
+            </ul>
+            <br/>
+            <br/>
+            <h3>Newest Articles</h3>
+            <ul>
+                <li th:each="article : ${newest}">
+                    <a th:href="@{/articles/{id}(id=${article.id})}">
+                        <span th:text="${article.title}">title</span>
+                        <span> </span>
+                        <span th:text="${article.publishingTime}">time</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </body>
