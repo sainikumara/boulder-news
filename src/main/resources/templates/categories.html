@@ -6,9 +6,9 @@
     </head>
     <body>
 
-<!--        <header th:replace="fragments/header :: header">
-            <p>header with links etc</p>
-        </header>-->
+        <header th:replace="fragments/header :: header">
+            <p>Navigation bar</p>
+        </header>
 
         <h1>Categories</h1>
 
@@ -17,6 +17,9 @@
                 <a th:href="@{/categories/{id}(id=${category.id})}">
                     <span th:text="${category.name}">category</span>
                 </a>
+                <form th:action="@{/categories/{id}(id=${category.id})}" th:method="DELETE">
+                    <input type="submit" value="remove"/>
+                </form>
             </li>
         </ul>
 

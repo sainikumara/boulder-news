@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Boulder News</title>
+    </head>
+    <body>
+
+        <h2>Boulder News</h2>
+        
+        <ul>
+            <li th:each="article : ${articles}">
+                <h3 th:text="${article.title}">title</h3>
+                <span> </span>
+                <span th:text="${article.publishingTime}">time</span>
+                <br/>
+                <span th:text="${article.lead}"></span>
+                <br/>
+                <img  th:src="@{/pictures_by_article/{id}/content(id=${article.id})}"
+                       width="200"/>
+                <br/>
+                <a th:href="@{/articles/{id}(id=${article.id})}">
+                    Read more
+                </a>
+            </li>
+        </ul>
+
+    </body>
+
+</html>
