@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import wad.domain.Category;
 import wad.domain.Writer;
 import wad.repository.CategoryRepository;
 import wad.repository.WriterRepository;
@@ -41,6 +40,7 @@ public class WriterController {
         Writer writer = this.writerRepository.getOne(id);
         model.addAttribute("writer", writer);
         model.addAttribute("articles", writer.getArticles());
+        model.addAttribute("categories", this.categoryRepository.findAll());
         
         return "writer";
     }

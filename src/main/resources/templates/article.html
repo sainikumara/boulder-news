@@ -2,51 +2,72 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <meta charset="UTF-8" />
-        <title>Article</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="icon" href="../../../../favicon.ico">
+
+        <title>Boulder News</title>
+
+        <!-- Custom styles for this template -->
+        <link href="style.css" rel="stylesheet">
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
     </head>
-    <body>
-        <header th:replace="fragments/header :: header">
+    
+    <body class="container">
+        <nav th:replace="fragments/navbar :: nav">
             <p>Navigation bar</p>
-        </header>
+        </nav>
         
-        <h1 th:text="${article.title}">Title</h1>
-        <h2 th:text="${article.lead}">Lead</h2>
-        <img th:src="@{/pictures/{id}/content(id=${picture.id})}" width="500"/>
-        <div th:text="${article.content}">content</div>
-        <div>Written by:
-            <ul>
-                <li th:each="writer : ${writers}">
-                    <a th:href="@{/writers/{id}(id=${writer.id})}">
-                        <span th:text="${writer.name}">writer</span>
-                    </a>
-                </li>
-            </ul>
+        <br/>
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="col-md-8">
+                <h1 th:text="${article.title}">Title</h1>
+                <h2 th:text="${article.lead}">Lead</h2>
+                <img th:src="@{/pictures/{id}/content(id=${picture.id})}" width="500"/>
+                <div th:text="${article.content}">content</div>
+                <div>Written by:
+                    <ul style="list-style: none;">
+                        <li th:each="writer : ${writers}">
+                            <a th:href="@{/writers/{id}(id=${writer.id})}">
+                                <span th:text="${writer.name}">writer</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="col-md-4">
+                <h3>This Week's Most Read Articles</h3>
+                <ul style="list-style: none;">
+                    <li th:each="article : ${mostread}">
+                        <a th:href="@{/articles/{id}(id=${article.id})}">
+                            <span th:text="${article.title}">title</span>
+                            <span> </span>
+                            <span th:text="${article.publishingTime}">time</span>
+                        </a>
+                    </li>
+                </ul>
+                <br/>
+                <h3>Newest Articles</h3>
+                <ul  style="list-style: none;">
+                    <li th:each="article : ${newest}">
+                        <a th:href="@{/articles/{id}(id=${article.id})}">
+                            <span th:text="${article.title}">title</span>
+                            <span> </span>
+                            <span th:text="${article.publishingTime}">time</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
         
-        <div id="listings">
-            <h3>This Week's Most Read Articles</h3>
-            <ul>
-                <li th:each="article : ${mostread}">
-                    <a th:href="@{/articles/{id}(id=${article.id})}">
-                        <span th:text="${article.title}">title</span>
-                        <span> </span>
-                        <span th:text="${article.publishingTime}">time</span>
-                    </a>
-                </li>
-            </ul>
-            <br/>
-            <br/>
-            <h3>Newest Articles</h3>
-            <ul>
-                <li th:each="article : ${newest}">
-                    <a th:href="@{/articles/{id}(id=${article.id})}">
-                        <span th:text="${article.title}">title</span>
-                        <span> </span>
-                        <span th:text="${article.publishingTime}">time</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     </body>
 </html>
