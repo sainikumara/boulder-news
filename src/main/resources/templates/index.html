@@ -24,7 +24,7 @@
         <h1>Boulder News</h1>
         
         <ul style="list-style: none;">
-            <li th:each="article : ${articles}">
+            <li th:if="articles.hasContent()" th:each="article : ${articles}">
                 <br/>
                 <a th:href="@{/articles/{id}(id=${article.id})}">
                     <h2 th:text="${article.title}">title</h2>
