@@ -3,6 +3,7 @@ package wad.controller;
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +15,9 @@ import wad.domain.Picture;
 import wad.repository.ArticleRepository;
 import wad.repository.PictureRepository;
 
+
 @Controller
+@Transactional
 public class PictureController {
     
     @Autowired

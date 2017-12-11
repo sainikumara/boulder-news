@@ -23,49 +23,29 @@
             <p>Admin nav</p>
         </nav>
         
+
         <br/>
         <br/>
         <br/>
         <h1>Boulder News Admin Panel</h1>
+       
         <br/>
-        <h3>Add an article</h3>
+        <h2>Add a category</h2>
 
-        <form th:action="@{/add_article}" method="POST" enctype="multipart/form-data">
-            <p>Title: <input name="title"></input></p>
-            
-            <p>Categories:</p>
-            <ul>
-                <li th:each="category : ${categories}">
-                    <input type="checkbox" name="categories" th:value="${category.id}"></input>
-                    <span th:text="${category.name}">category</span>
-                </li>
-            </ul>
-            
-            <p>Writers:</p>
-            <ul>
-                <li th:each="writer : ${writers}">
-                    <input type="checkbox" name="writers" th:value="${writer.id}"></input>
-                    <span th:text="${writer.name}">writer</span>
-                </li>
-            </ul>
-            
-            <p>Lead: <input name="lead"></input></p>
-            <p>Content: <textarea rows="10" cols="50" name="content"></textarea></p>
-            <p>Picture: <input type="file" name="file" id="file"/></p>
+        <form th:action="@{/categories}" method="POST">
+            <p>Name: <input name="name"></input></p>
             <input type="submit" value="Add"></input>
         </form>
         
         <br/>
-        <h2>Articles</h2>
-        
-        <ul style="list-style: none;">
-            <li th:each="article : ${articles}">
-                <a th:href="@{/articles/{id}(id=${article.id})}">
-                    <span th:text="${article.title}">title</span>
-                    <span> </span>
-                    <span th:text="${article.publishingTime}">time</span>
+        <h2>Categories</h2>
+
+        <ul>
+            <li th:each="category : ${categories}">
+                <a th:href="@{/categories/{id}(id=${category.id})}">
+                    <span th:text="${category.name}">category</span>
                 </a>
-                <form th:action="@{/articles/{id}(id=${article.id})}" th:method="DELETE">
+                <form th:action="@{/categories/{id}(id=${category.id})}" th:method="DELETE">
                     <input type="submit" value="remove"/>
                 </form>
             </li>

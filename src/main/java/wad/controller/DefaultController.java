@@ -25,7 +25,20 @@ public class DefaultController {
     public String admin(Model model) {
         model.addAttribute("writers", this.writerRepository.findAll());
         model.addAttribute("categories", this.categoryRepository.findAll());
-        model.addAttribute("articles", this.articleRepository);
+        model.addAttribute("articles", this.articleRepository.findAll());
         return "admin_panel";
+    }
+    
+    @GetMapping("/admin_panel_writers")
+    public String adminWriters(Model model) {
+        model.addAttribute("writers", this.writerRepository.findAll());
+        model.addAttribute("categories", this.categoryRepository.findAll());
+        return "admin_panel_writers";
+    }
+    
+    @GetMapping("/admin_panel_categories")
+    public String adminCategories(Model model) {
+        model.addAttribute("categories", this.categoryRepository.findAll());
+        return "admin_panel_categories";
     }
 }

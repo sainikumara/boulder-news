@@ -62,13 +62,6 @@ public class ArticleController {
         return pageable;
     }
     
-    @GetMapping("/add_article")
-    public String addArticle(Model model) {
-        model.addAttribute("categories", this.categoryRepository.findAll());
-        model.addAttribute("writers", this.writerRepository.findAll());
-        return "add_article";
-    }
-
     @GetMapping("/articles/{id}")
     public String viewArticle(Model model, @PathVariable Long id) {
         // TODO direct to error page if article doesn't exist
