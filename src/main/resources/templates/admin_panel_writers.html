@@ -41,7 +41,7 @@
         <h2>Writers</h2>
 
         <ul>
-            <li th:each="writer : ${writers}">
+            <li th:each="writer : ${writers}" style="list-style: none;">
                 <a th:href="@{/writers/{id}(id=${writer.id})}">
                     <span th:text="${writer.name}">writer</span>
                 </a>

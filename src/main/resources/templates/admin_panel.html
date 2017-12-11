@@ -43,7 +43,7 @@
             
             <p>Writers:</p>
             <ul>
-                <li th:each="writer : ${writers}">
+                <li th:each="writer : ${writers}" style="list-style: none;">
                     <input type="checkbox" name="writers" th:value="${writer.id}"></input>
                     <span th:text="${writer.name}">writer</span>
                 </li>
