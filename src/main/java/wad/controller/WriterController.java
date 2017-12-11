@@ -15,6 +15,7 @@ import wad.repository.WriterRepository;
 import wad.repository.ArticleRepository;
 
 @Controller
+@Transactional
 public class WriterController {
     
     @Autowired
@@ -51,7 +52,7 @@ public class WriterController {
         writer.setName(name);
         this.writerRepository.save(writer);
 
-        return "redirect:/admin_panel";
+        return "redirect:/admin_panel_writers";
     }
     
     @Transactional
@@ -65,6 +66,6 @@ public class WriterController {
         
         this.writerRepository.delete(writer);
         
-        return "redirect:/admin_panel";
+        return "redirect:/admin_panel_writers";
     }
 }

@@ -17,6 +17,7 @@ import wad.repository.ArticleRepository;
 import wad.repository.CategoryRepository;
 
 @Controller
+@Transactional
 public class CategoryController {
     
     @Autowired
@@ -49,7 +50,7 @@ public class CategoryController {
         category.setName(name);
         this.categoryRepository.save(category);
 
-        return "redirect:/admin_panel";
+        return "redirect:/admin_panel_categories";
     }
     
     @Transactional
@@ -63,6 +64,6 @@ public class CategoryController {
         
         this.categoryRepository.delete(category);
         
-        return "redirect:/admin_panel";
+        return "redirect:/admin_panel_categories";
     }
 }

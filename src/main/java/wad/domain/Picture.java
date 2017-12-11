@@ -6,6 +6,8 @@ import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @NoArgsConstructor
@@ -14,6 +16,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 public class Picture extends AbstractPersistable<Long> {
     
+    @Cascade(CascadeType.ALL)
     @OneToOne
     private Article article;
     
