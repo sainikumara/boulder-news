@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="icon" href="../../../../favicon.ico">
+
+        <title>Boulder News</title>
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+    <body class="container">
+
+        <h1>Boulder News Admin Panel</h1>
+       
+        <h3>Add an article</h3>
+
+        <form th:action="@{/add_article}" method="POST" enctype="multipart/form-data">
+            <p>Title: <input name="title"></input></p>
+            
+            <p>Categories:</p>
+            <ul>
+                <li th:each="category : ${categories}">
+                    <input type="checkbox" name="categories" th:value="${category.id}"></input>
+                    <span th:text="${category.name}">category</span>
+                </li>
+            </ul>
+            
+            <p>Writers:</p>
+            <ul>
+                <li th:each="writer : ${writers}">
+                    <input type="checkbox" name="writers" th:value="${writer.id}"></input>
+                    <span th:text="${writer.name}">writer</span>
+                </li>
+            </ul>
+            
+            <p>Lead: <input name="lead"></input></p>
+            <p>Content: <textarea rows="10" cols="50" name="content"></textarea></p>
+            <p>Picture: <input type="file" name="file" id="file"/></p>
+            <input type="submit" value="Add"></input>
+        </form>
+        
+        <h1>Writers</h1>
+
+        <ul>
+            <li th:each="writer : ${writers}">
+                <a th:href="@{/writers/{id}(id=${writer.id})}">
+                    <span th:text="${writer.name}">writer</span>
+                </a>
+                <form th:action="@{/writers/{id}(id=${writer.id})}" th:method="DELETE">
+                    <input type="submit" value="remove"/>
+                </form>
+            </li>
+        </ul>
+
+        <h3>Add a writer</h3>
+
+        <form th:action="@{/writers}" method="POST">
+            <p>Name: <input name="name"></input></p>
+            <input type="submit" value="Add"></input>
+        </form>
+
+        <br/>
+        <h2>Categories</h2>
+
+        <ul>
+            <li th:each="category : ${categories}">
+                <a th:href="@{/categories/{id}(id=${category.id})}">
+                    <span th:text="${category.name}">category</span>
+                </a>
+                <form th:action="@{/categories/{id}(id=${category.id})}" th:method="DELETE">
+                    <input type="submit" value="remove"/>
+                </form>
+            </li>
+        </ul>
+
+        <h3>Add a category</h3>
+
+        <form th:action="@{/categories}" method="POST">
+            <p>Name: <input name="name"></input></p>
+            <input type="submit" value="Add"></input>
+        </form>
+        
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    
+    </body>
+
+</html>

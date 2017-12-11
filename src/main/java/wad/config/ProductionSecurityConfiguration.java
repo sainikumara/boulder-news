@@ -8,19 +8,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+@Profile("production")
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class ProductionSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // mahdollistetaan h2-konsolin käyttö
-        http.csrf().disable();
-        http.headers().frameOptions().sameOrigin();
-
         http.authorizeRequests()
-                .antMatchers("/h2-console/*").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/articles/**").permitAll()
                 .antMatchers("/writers/**").permitAll()
@@ -28,10 +24,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/pictures/**").permitAll()
                 .antMatchers("/pictures_by_article/**").permitAll()
                 .anyRequest().authenticated().and()
-                .formLogin().permitAll().and()
-                .logout().permitAll();
+                .formLogin().permitAll().defaultSuccessUrl("/admin_panel",true).and()
+                .logout().permitAll().logoutSuccessUrl("/");
     }
-
+    
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()

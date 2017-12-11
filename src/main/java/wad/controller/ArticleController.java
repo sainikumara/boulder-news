@@ -143,7 +143,7 @@ public class ArticleController {
         }
         
         this.articleRepository.save(article);
-        return "redirect:/";
+        return "redirect:/admin_panel";
     }
     
     @Transactional
@@ -162,7 +162,7 @@ public class ArticleController {
         
         this.articleRepository.delete(article);
         
-        return "redirect:/";
+        return "redirect:/admin_panel";
     }
     
 }

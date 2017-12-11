@@ -49,7 +49,7 @@ public class CategoryController {
         category.setName(name);
         this.categoryRepository.save(category);
 
-        return "redirect:/categories";
+        return "redirect:/admin_panel";
     }
     
     @Transactional
@@ -63,6 +63,6 @@ public class CategoryController {
         
         this.categoryRepository.delete(category);
         
-        return "redirect:/categories";
+        return "redirect:/admin_panel";
     }
 }

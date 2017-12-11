@@ -51,7 +51,7 @@ public class WriterController {
         writer.setName(name);
         this.writerRepository.save(writer);
 
-        return "redirect:/writers";
+        return "redirect:/admin_panel";
     }
     
     @Transactional
@@ -65,6 +65,6 @@ public class WriterController {
         
         this.writerRepository.delete(writer);
         
-        return "redirect:/writers";
+        return "redirect:/admin_panel";
     }
 }
