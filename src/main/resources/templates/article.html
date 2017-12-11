@@ -9,8 +9,6 @@
 
         <title>Boulder News</title>
 
-        <!-- Custom styles for this template -->
-        <link href="style.css" rel="stylesheet">
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
@@ -42,7 +40,7 @@
             </div>
         
             <div class="col-md-4">
-                <h3>This Week's Most Read Articles</h3>
+                <h3>This Week's Most Read</h3>
                 <ul style="list-style: none;">
                     <li th:each="article : ${mostread}">
                         <a th:href="@{/articles/{id}(id=${article.id})}">
@@ -53,7 +51,7 @@
                     </li>
                 </ul>
                 <br/>
-                <h3>Newest Articles</h3>
+                <h3>Newest</h3>
                 <ul  style="list-style: none;">
                     <li th:each="article : ${newest}">
                         <a th:href="@{/articles/{id}(id=${article.id})}">
