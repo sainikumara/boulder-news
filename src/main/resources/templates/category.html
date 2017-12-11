@@ -10,8 +10,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
     </head>
+    
     <body class="container">
-
+        
         <nav th:replace="fragments/navbar :: nav">
             <p>Navigation bar</p>
         </nav>
@@ -25,19 +26,19 @@
                 <a th:href="@{/articles/{id}(id=${article.id})}">
                     <h3 th:text="${article.title}">title</h3>
                 </a>
+                
                 <span th:text="${article.publishingTime}">time</span>
                 <br/>
                 <span th:text="${article.lead}"></span>
                 <br/>
                 <img  th:src="@{/pictures_by_article/{id}/content(id=${article.id})}"
-                       width="200"/>
+                       width="200"/>                
             </li>
         </ul>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    
     </body>
 
 </html>
