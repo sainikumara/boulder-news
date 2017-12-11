@@ -1,7 +1,7 @@
 package wad.controller;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import wad.domain.Article;
 import wad.domain.Category;
@@ -94,7 +93,7 @@ public class ArticleController {
     
     private void addPageView(Article article) {
         PageView pageView = new PageView();
-        pageView.setViewTime(LocalDate.now());
+        pageView.setViewTime(LocalDateTime.now());
         pageView.setArticle(article);
 
         article.getPageViews().add(pageView);
@@ -105,7 +104,7 @@ public class ArticleController {
     
     private List<Article> getMostReadLastWeek(int preferredListSize) {
         List<Article> readLastWeek = 
-            this.articleRepository.mostReadSince(LocalDate.now().minusWeeks(1L));
+            this.articleRepository.mostReadSince(LocalDateTime.now().minusWeeks(1L));
         int realListSize;
         
         if (readLastWeek.size() < preferredListSize) {
@@ -118,10 +117,10 @@ public class ArticleController {
         
         return mostReadLastWeek;
     }
-    
+
+    @Transactional
     @PostMapping("/add_article")
     public String create(@RequestParam String title,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate publishingTime,
             @RequestParam String content,
             @RequestParam String lead,
             @RequestParam List<Category> categories,
@@ -130,7 +129,7 @@ public class ArticleController {
         Article article = new Article();
         article.setTitle(title);
         article.setLead(lead);
-        article.setPublishingTime(publishingTime);
+        article.setPublishingTime(LocalDateTime.now());
         article.setContent(content);
         article.setCategories(categories);
         article.setWriters(writers);

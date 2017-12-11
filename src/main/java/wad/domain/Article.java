@@ -1,6 +1,6 @@
 package wad.domain;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -20,7 +20,7 @@ public class Article extends AbstractPersistable<Long> {
     private String title;
     private String lead;
     private String content;
-    private LocalDate publishingTime;
+    private LocalDateTime publishingTime;
     
     @OneToOne
     private Picture picture;
@@ -33,6 +33,5 @@ public class Article extends AbstractPersistable<Long> {
     
     @OneToMany
     private List<PageView> pageViews;
-    
-    
+
 }

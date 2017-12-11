@@ -1,9 +1,7 @@
 package wad.domain;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +14,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 public class PageView extends AbstractPersistable<Long> {
     
-    private LocalDate viewTime; 
+    private LocalDateTime viewTime; 
             
     @ManyToOne
     private Article article;
