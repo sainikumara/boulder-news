@@ -27,7 +27,7 @@
                 <h1 th:text="${article.title}">Title</h1>
                 <h2 th:text="${article.lead}">Lead</h2>
                 <img th:src="@{/pictures/{id}/content(id=${picture.id})}" width="500"/>
-                <div th:text="${article.content}">content</div>
+                <div th:text="${article.articleContent}">content</div>
                 <div>Written by:
                     <ul style="list-style: none;">
                         <li th:each="writer : ${writers}">

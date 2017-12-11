@@ -29,6 +29,7 @@ import wad.repository.PictureRepository;
 import wad.repository.WriterRepository;
 
 @Controller
+@Transactional
 public class ArticleController {
 
     @Autowired
@@ -123,7 +124,7 @@ public class ArticleController {
         article.setTitle(title);
         article.setLead(lead);
         article.setPublishingTime(LocalDateTime.now());
-        article.setContent(content);
+        article.setArticleContent(content);
         article.setCategories(categories);
         article.setWriters(writers);
 
@@ -143,7 +144,7 @@ public class ArticleController {
     @DeleteMapping("/articles/{id}")
     public String removeArticle(@PathVariable Long id) {
         Article article = this.articleRepository.getOne(id);
-        this.pictureRepository.delete(article.getPicture());
+        this.pictureRepository.deleteById(article.getPicture().getId());
         
         article.getCategories().forEach((category) -> {
             this.categoryRepository.getOne(category.getId()).getArticles().remove(article);
@@ -152,6 +153,12 @@ public class ArticleController {
         article.getWriters().forEach((writer) -> {
             this.writerRepository.getOne(writer.getId()).getArticles().remove(article);
         });
+        
+//        article.getPageViews().forEach((pageView) -> {
+//            this.pageViewRepository.delete(pageView);
+//        });
+        
+        article.getPageViews().clear();
         
         this.articleRepository.delete(article);
         

@@ -2,6 +2,7 @@ package wad.domain;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -21,9 +22,11 @@ public class Article extends AbstractPersistable<Long> {
 
     private String title;
     private String lead;
-    private String content;
+    @Column(length = 10000)
+    private String articleContent;
     private LocalDateTime publishingTime;
     
+    @Cascade(CascadeType.ALL)
     @OneToOne
     private Picture picture;
     
