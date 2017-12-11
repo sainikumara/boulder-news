@@ -6,6 +6,8 @@ import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @NoArgsConstructor
@@ -15,7 +17,8 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 public class PageView extends AbstractPersistable<Long> {
     
     private LocalDateTime viewTime; 
-            
+    
+    @Cascade(CascadeType.ALL)
     @ManyToOne
     private Article article;
 
